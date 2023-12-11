@@ -1,5 +1,6 @@
 package com.example.currency.service;
 
+import com.example.currency.model.CurrencyRateDto;
 import com.example.currency.webclient.CurrencyClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,11 +16,8 @@ public class CurrencyRateService {
 
     private final CurrencyClient currencyClient;
 
-    public Optional<String> getCurrencyRate() {
-        String response = currencyClient.getRateForGivenCurrency("c", "usd")
-                .orElse(null);
-        log.info(response);
-        return Optional.empty();
+    public Optional<CurrencyRateDto> getCurrencyRate(String currencyCode) {
+        return Optional.ofNullable(currencyClient.getRateForGivenCurrency("c", currencyCode));
     }
 
 
