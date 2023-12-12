@@ -15,7 +15,6 @@ public class ControllerExceptionHandler {
     public ResponseEntity<Object> handleError(HttpClientErrorException ex) {
         ErrorMessage errorMessage = new ErrorMessage(
                 HttpStatus.NOT_FOUND.value(),
-                new Date(),
                 ex.getMessage()
         );
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);

@@ -1,6 +1,7 @@
 package com.example.currency.webclient;
 
 import com.example.currency.dto.NbpCurrencyDto;
+import com.example.currency.dto.NbpCurrencyRatesDto;
 import com.example.currency.model.CurrencyRateDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +28,7 @@ public class CurrencyClient {
     }
 
     public CurrencyRateDto getRateForGivenCurrencyInGivenDay(String currencyCode, String date) {
-        NbpCurrencyDto nbpCurrencyDto = callGetMethod(CURRENCY_URL + "/{code}/{date}", NbpCurrencyDto.class,
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("/{code}/{date}", NbpCurrencyDto.class,
                 currencyCode, date);
         return CurrencyRateDto.builder()
                 .currency(nbpCurrencyDto.getCurrency())
@@ -39,8 +40,8 @@ public class CurrencyClient {
     }
 
     public CurrencyRateDto getTodayRateForGivenCurrency(String currencyCode) {
-        NbpCurrencyDto nbpCurrencyDto = callGetMethod(CURRENCY_URL + "/{code}/", NbpCurrencyDto.class,
-                currencyCode, "today");
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("/{code}/today", NbpCurrencyDto.class,
+                currencyCode);
         return CurrencyRateDto.builder()
                 .currency(nbpCurrencyDto.getCurrency())
                 .code(nbpCurrencyDto.getCode())
@@ -52,8 +53,8 @@ public class CurrencyClient {
 //
     public CurrencyRateDto getRateForGivenCurrencyInTimeRange(String currencyCode,
                                                                String startDate, String endDate) {
-        NbpCurrencyDto nbpCurrencyDto = callGetMethod(CURRENCY_URL + "/{code}/{date}", NbpCurrencyDto.class, currencyCode,
-                startDate, endDate);
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("/{code}/{startDate}/{endDate}", NbpCurrencyDto.class,
+                currencyCode, startDate, endDate);
         return CurrencyRateDto.builder()
                 .currency(nbpCurrencyDto.getCurrency())
                 .code(nbpCurrencyDto.getCode())
@@ -64,7 +65,7 @@ public class CurrencyClient {
     }
 //
     public CurrencyRateDto getLastDaysRateForGivenCurrency(String currencyCode, int topCount) {
-        NbpCurrencyDto nbpCurrencyDto = callGetMethod(CURRENCY_URL + "/{code}/{topCount}/", NbpCurrencyDto.class, currencyCode,
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("/{code}/{topCount}/", NbpCurrencyDto.class, currencyCode,
                 "last", topCount);
         return CurrencyRateDto.builder()
                 .currency(nbpCurrencyDto.getCurrency())
