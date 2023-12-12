@@ -16,7 +16,7 @@ public class CurrencyRateService {
     private final CurrencyClient currencyClient;
 
     public Optional<CurrencyRateDto> getCurrencyRate(String currencyCode) {
-        return Optional.ofNullable(currencyClient.getRateForGivenCurrency("c", currencyCode));
+        return Optional.ofNullable(currencyClient.getRateForGivenCurrency(currencyCode));
     }
 
 
